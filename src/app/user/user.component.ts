@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -9,8 +10,12 @@ import { UserService } from '../user.service';
 })
 export class UserComponent {
   allUsers: User [] = [];
-  constructor(private userService: UserService) {
+  user: User = {id: this.generateRandomId(),name: '', age: 0};
+  constructor(private userService: UserService, private router: Router) {
+  }
 
+  generateRandomId(): string {
+    return Math.floor(Math.random() * 1000000).toString();
   }
 
   ngOnInit(): void {
@@ -18,4 +23,12 @@ export class UserComponent {
       this.allUsers = data;
     })
   }
+
+  deleteUser(id: string): void {
+    this.userService.deleteUser(id).subscribe(() => {
+      this.allUsers = this.allUsers.filter(user => user.id !== id);
+    });
+  }
+
+  
 }

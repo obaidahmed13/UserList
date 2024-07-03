@@ -6,12 +6,17 @@
                 <tr>
                     <th>Name</th>
                     <th>Age</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
            <tbody>
             <tr *ngFor="let user of allUsers">
                 <td>{{user.name}}</td>
                 <td>{{user.age}}</td>
+                <td> 
+                    <a href="addUser" class="btn btn-primary">Add User</a>
+                    <button (click)="deleteUser(user.id)" class="btn btn-danger ms-3">Delete</button>
+                </td>
             </tr>
            </tbody>
             
